@@ -378,8 +378,11 @@ private String stashWorkspace(config, prefix, boolean chown = false, boolean sta
 chown -R ${runAsUser}:${fsGroup} ."""
         }
 
+        echo "config: ${config.toMapString()}"
+        
         def includes, excludes
-
+        echo "stashBack: ${stashBack}"
+        echo "config.stashIncludes.workspace: ${config.stashIncludes.workspace}"
         if (stashBack) {
             includes = config.stashIncludes.stashBack ?: config.stashIncludes.workspace
             excludes = config.stashExcludes.stashBack ?: config.stashExcludes.workspace
