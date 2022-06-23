@@ -395,7 +395,7 @@ chown -R ${runAsUser}:${fsGroup} ."""
         echo "excludes: ${excludes}"
         stash(
             name: stashName,
-            includes: includes,
+            includes: 'main.go',
             excludes: excludes,
             // 'true' by default due to negative side-effects, but can be overwritten via parameters
             // (as done by artifactPrepareVersion to preserve the .git folder)
