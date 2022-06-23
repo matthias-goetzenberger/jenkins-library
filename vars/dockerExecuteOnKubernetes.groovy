@@ -322,7 +322,7 @@ void executeOnPod(Map config, utils, Closure body, Script script) {
                     echo "stashContent: ${stashContent}"
                     container(containerParams) {
                         try {
-                            //utils.unstashAll(stashContent)
+                            utils.unstashAll(stashContent)
                             echo "invalidate stash workspace-${config.uniqueId}"
                             stash name: "workspace-${config.uniqueId}", excludes: '**/*', allowEmpty: true
                             body()
@@ -387,7 +387,9 @@ chown -R ${runAsUser}:${fsGroup} ."""
             includes = config.stashIncludes.workspace
             excludes = config.stashExcludes.workspace
         }
-
+        echo "stashName: ${stashName}"
+        echo "includes: ${includes}"
+        echo "excludes: ${excludes}"
         stash(
             name: stashName,
             includes: includes,
@@ -396,6 +398,7 @@ chown -R ${runAsUser}:${fsGroup} ."""
             // (as done by artifactPrepareVersion to preserve the .git folder)
             useDefaultExcludes: !config.stashNoDefaultExcludes,
         )
+        echo "stashName: ${stashName}"
         return stashName
     } catch (AbortException | IOException e) {
         echo "${e.getMessage()}"
